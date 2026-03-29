@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catetan guweh</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app" id="app">
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">Cloud Notes</div>
+            <div class="search-wrap">
+                <input class="search-input" type="text" id="searchInput" placeholder="Search notes...">
+            </div>
+        </div>
+        <div class="note-count" id="noteCount">0 notes</div>
+        <div class="note-list" id="noteList">
+            </div>
+        <button class="new-btn" id="newBtn">+ New Note</button>
+    </aside>
+
+    <main class="main" id="main">
+        <div class="editor-area">
+            <div class="empty-state" id="emptyState">
+                <div class="empty-label">No note selected</div>
+                <div class="empty-sub">Create a new note or select one from the list.</div>
+            </div>
+
+            <div class="editor" id="editorPanel" style="display:none;">
+                <button class="back-btn" id="backBtn">Back</button>
+                <div class="editor-toolbar">
+                    <span class="editor-meta" id="editorMeta">New note</span>
+                    <div class="editor-actions">
+                        <button class="btn" id="cancelBtn">Cancel</button>
+                        <button class="btn btn-primary" id="saveBtn">Save</button>
+                    </div>
+                </div>
+                <input class="title-input" id="titleInput" placeholder="Title" maxlength="100">
+                <textarea class="body-input" id="bodyInput" placeholder="Start writing..."></textarea>
+            </div>
+
+            <div class="editor" id="viewPanel" style="display:none;">
+                <button class="back-btn" id="backBtn2">Back</button>
+                <div class="editor-toolbar">
+                    <span class="editor-meta" id="viewMeta"></span>
+                    <div class="editor-actions">
+                        <button class="btn btn-danger" id="deleteBtn">Delete</button>
+                        <button class="btn" id="editBtn">Edit</button>
+                    </div>
+                </div>
+                <div class="view-title" id="viewTitle"></div>
+                <div class="view-body" id="viewBody"></div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
