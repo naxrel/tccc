@@ -3,10 +3,11 @@ const db = require('../config/db');
 // 1. Ambil semua catatan (READ)
 exports.getAllNotes = async (req, res) => {
     try {
-        const [rows] = await db.query('SELECT * FROM notes ORDER BY tanggal_dibuat DESC');
+        // Urutkan berdasarkan yang terakhir diubah agar catatan terbaru ada di atas
+        const [rows] = await db.query('SELECT * FROM notes ORDER BY tanggal_diubah DESC');
         res.json(rows);
     } catch (err) {
-        res.status(500).json({ error: "Gagal mengambil data: " + err.message });
+        res.status(500).json({ error: err.message });
     }
 };
 
@@ -18,9 +19,9 @@ exports.createNote = async (req, res) => {
             return res.status(400).json({ error: "Judul dan isi tidak boleh kosong" });
         }
         await db.query('INSERT INTO notes (judul, isi) VALUES (?, ?)', [judul, isi]);
-        res.status(201).json({ message: "Catatan berhasil disimpan ke Cloud SQL" });
+        res.status(201).json({ message: "Success" });
     } catch (err) {
-        res.status(500).json({ error: "Gagal menyimpan data: " + err.message });
+        res.status(500).json({ error: "Failed: " + err.message });
     }
 };
 
@@ -35,7 +36,7 @@ exports.updateNote = async (req, res) => {
         }
         res.json({ message: "Catatan berhasil diperbarui" });
     } catch (err) {
-        res.status(500).json({ error: "Gagal update data: " + err.message });
+        res.status(500).json({ error: "Failed: " + err.message });
     }
 };
 
@@ -47,8 +48,8 @@ exports.deleteNote = async (req, res) => {
         if (result.affectedRows === 0) {
             return res.status(404).json({ error: "Catatan tidak ditemukan" });
         }
-        res.json({ message: "Catatan berhasil dihapus dari Cloud SQL" });
+        res.json({ message: "Success" });
     } catch (err) {
-        res.status(500).json({ error: "Gagal menghapus data: " + err.message });
+        res.status(500).json({ error: "Failed: " + err.message });
     }
 };

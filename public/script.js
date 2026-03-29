@@ -1,10 +1,9 @@
-const API_URL = '/api/notes'; // Karena dilayani oleh Express yang sama, cukup relatif path
+const API_URL = '/api/notes';
 
 let notes = [];
 let activeId = null;
 let editingId = null;
 
-// --- ELEMENTS ---
 const noteList = document.getElementById('noteList');
 const noteCount = document.getElementById('noteCount');
 const searchInput = document.getElementById('searchInput');
@@ -14,14 +13,14 @@ const viewPanel = document.getElementById('viewPanel');
 const titleInput = document.getElementById('titleInput');
 const bodyInput = document.getElementById('bodyInput');
 
-// --- UTILS ---
+//util e
 const fmt = (ts) => {
     const d = new Date(ts);
     return d.toLocaleDateString('en-GB', { day:'2-digit', month:'short' }) + ' ' + 
            d.toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' });
 };
 
-// --- CORE FUNCTIONS (API CALLS) ---
+//api call
 
 const fetchNotes = async () => {
     try {
@@ -51,7 +50,11 @@ const openNote = (id) => {
     const n = notes.find(x => x.id === id);
     document.getElementById('viewTitle').textContent = n.judul;
     document.getElementById('viewBody').textContent = n.isi;
-    document.getElementById('viewMeta').textContent = `Created ${fmt(n.tanggal_dibuat)}`;
+    
+    // Tampilkan tanggal diubah jika tersedia
+    const tgl = n.tanggal_diubah ? n.tanggal_diubah : n.tanggal_dibuat;
+    document.getElementById('viewMeta').textContent = `Last edited: ${fmt(tgl)}`;
+    
     showPanel('view');
     renderList();
 };
@@ -62,8 +65,7 @@ const showPanel = (p) => {
     viewPanel.style.display = p === 'view' ? 'flex' : 'none';
 };
 
-// --- EVENTS ---
-
+//events
 document.getElementById('newBtn').onclick = () => {
     editingId = null;
     titleInput.value = '';
@@ -105,5 +107,5 @@ document.getElementById('deleteBtn').onclick = async () => {
 document.getElementById('cancelBtn').onclick = () => showPanel('empty');
 searchInput.oninput = fetchNotes;
 
-// --- INIT ---
+//init
 fetchNotes();

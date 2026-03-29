@@ -1,0 +1,32 @@
+###
+# API Testing
+GET http://localhost:3000/ HTTP/1.1
+
+###
+# GET : All Notes
+GET http://localhost:3000/api/notes HTTP/1.1
+Content-Type: application/json
+
+###
+# POST : Create Note
+POST http://localhost:3000/api/notes HTTP/1.1
+Content-Type: application/json
+
+{
+    "judul": "pesanan biji kopi untuk wowok",
+    "isi": "biji tanpa isi "
+}
+
+###
+# PUT : Update Note
+PUT http://localhost:3000/api/notes/3 HTTP/1.1
+Content-Type: application/json
+
+{
+    "judul": "raceto",
+    "isi": "tolong mbg dihapus wok"
+}
+
+###
+# DELETE : Delete Note
+DELETE http://localhost:3000/api/notes/1 HTTP/1.1
