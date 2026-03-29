@@ -1,6 +1,6 @@
 const db = require('../config/db');
 
-// 1. Ambil semua catatan (READ)
+//read
 exports.getAllNotes = async (req, res) => {
     try {
         // Urutkan berdasarkan yang terakhir diubah agar catatan terbaru ada di atas
@@ -11,7 +11,7 @@ exports.getAllNotes = async (req, res) => {
     }
 };
 
-// 2. Tambah catatan baru (CREATE)
+//create
 exports.createNote = async (req, res) => {
     const { judul, isi } = req.body;
     try {
@@ -25,7 +25,7 @@ exports.createNote = async (req, res) => {
     }
 };
 
-// 3. Update catatan (UPDATE)
+//update
 exports.updateNote = async (req, res) => {
     const { id } = req.params;
     const { judul, isi } = req.body;
@@ -40,7 +40,7 @@ exports.updateNote = async (req, res) => {
     }
 };
 
-// 4. Hapus catatan (DELETE)
+//delete
 exports.deleteNote = async (req, res) => {
     const { id } = req.params;
     try {
